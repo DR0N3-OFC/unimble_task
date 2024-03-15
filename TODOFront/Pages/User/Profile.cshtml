@@ -1,0 +1,84 @@
+﻿@page  "/Profile"
+@model TODOFront.Pages.User.Profile
+@{
+    ViewData["Title"] = "Planejaí - Perfil do Usuário";
+}
+
+<style>
+    body {
+        background-color: #e9ecef;
+    }
+
+    .wrapper {
+        margin: 10vh auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-container {
+        width: 60%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-container h2 {
+        margin: 20px auto;
+    }
+
+    .profile-container img {
+        border-radius: 50%;
+        width: 150px;
+        align-self: center;
+    }
+
+    .profile-container p {
+        margin-bottom: 10px;
+    }
+
+    .btn-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 20px 0 0 0;
+    }
+
+    .profile-content {
+        width: 75%;
+        display: flex;
+        justify-content: space-around;
+        margin: 50px auto;
+        align-self: center;
+    }
+
+    .user-data {
+        align-self: center;
+    }
+
+    .btn-link:hover {
+        text-decoration: none;
+    }
+</style>
+
+<div class="wrapper">
+    <div class="profile-container">
+        <h2 class="text-center">Perfil do usuário</h2>
+        <div class="profile-content">
+            <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436178.jpg?w=740&t=st=1687185747~exp=1687186347~hmac=ccfe212aade382894dbc86b8981456784b795ee9bc90b0f5fb577e0a1730aff1" />
+            <div class="user-data">
+                <p><strong>Usuário:</strong> @Model.ExistingUser!.UserName</p>
+                <p><strong>E-mail:</strong> @Model.ExistingUser!.Email</p>
+            </div>
+        </div>
+        <form class="btn-container" method="post">
+            <a asp-page="/User/Edit" class="btn btn-primary">Editar Perfil</a>
+            <button type="submit" class="btn btn-link text-danger">Encerrar sessão</button>
+        </form>
+    </div>
+</div>
+

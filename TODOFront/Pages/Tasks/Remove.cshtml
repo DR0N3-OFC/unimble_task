@@ -1,0 +1,82 @@
+﻿@page "/Tasks/Remove/{id:int}"
+@model TODOFront.Pages.Tasks.RemoveModel
+@{
+    ViewData["Title"] = "Planejaí - Excluir Atividade";
+}
+
+<style>
+    body {
+        background-color: #e9ecef;
+    }
+
+    .wrapper {
+        margin: 10vh auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .remove-container {
+        width: 60%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .remove-container h2 {
+        margin: 20px auto;
+    }
+
+    .remove-container p {
+        margin-bottom: 10px;
+    }
+
+    .btn-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        margin-right: 10px;
+    }
+
+    .btn-danger:hover {
+        color: #fff;
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+    .btn-danger:focus {
+        color: #fff;
+        background-color: #c82333;
+        border-color: #bd2130;
+        box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
+    }
+</style>
+
+<div class="wrapper">
+    <div class="remove-container">
+        <h2 class="text-center">Excluir atividade</h2>
+        <p class="text-center">Tem certeza de que deseja excluir a atividade?</p>
+        <p><strong>Descrição:</strong> @Model.Task.Description</p>
+        <form method="post">
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger btn-block">Excluir</button>
+                <a asp-page="/Tasks/Index" class="btn btn-secondary btn-block">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
