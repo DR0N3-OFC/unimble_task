@@ -18,8 +18,8 @@ namespace TODOBack.Controllers
             return Ok(context.Billings!.ToList());
         }
 
-        [HttpGet("/Billings/{id:alpha}")]
-        public IActionResult GetByID([FromRoute] string id, [FromServices] AppDbContext context)
+        [HttpGet("/Billings/{txid:guid}")]
+        public IActionResult GetByID([FromRoute] string txid, [FromServices] AppDbContext context)
         {
             var billingModel = context.Billings!.SingleOrDefault(e => e.TxID == id);
 
@@ -31,23 +31,32 @@ namespace TODOBack.Controllers
             return Ok(billingModel);
         }
 
-        [HttpGet("/BillingQrCode/{id:alpha}")]
-        public IActionResult GetBillingQRCode([FromRoute] string id, [FromServices] AppDbContext context)
+        [HttpGet("/BillingQrCode/{txid:guid}")]
+        public IActionResult GetBillingQRCode([FromRoute] string txid, [FromServices] AppDbContext context)
         {
-            var charge = new PixCharge();
-
-            var locationId = (int)JObject.Parse(charge.Execute(id))["loc"]["id"];
-
-            var result = charge.GetQRCode(locationId);
-
-            if (result != null)
+            try 
             {
-                var qrCode = (string)JObject.Parse(result)["imagemQrcode"];
+                var charge = new PixCharge();
 
-                return Ok(qrCode);
+                var chargeDetails = charge.Execute(id);
+                
+                var locationId = (int)JObject.Parse(chargeDetails)["loc"]["id"];
+                
+                var result = charge.GetQRCode(locationId);
+                
+                if (result != null)
+                {
+                    var qrCode = (string)JObject.Parse(result)["imagemQrcode"];
+                    
+                    return Ok(qrCode);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
 
-            return NotFound();
+            return BadRequest();
         }
 
         [HttpGet("/BillingByUser/{id:int}")]

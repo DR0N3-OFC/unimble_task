@@ -46,11 +46,12 @@ namespace TODOFront.Pages.Billing
                 requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
 
                 response = await httpClient.SendAsync(requestMessage);
+                
                 content = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var qrCode = JsonConvert.DeserializeObject<string?>(content);
+                    var qrCode = content;
 
                     QRCode = qrCode!;
                 }
