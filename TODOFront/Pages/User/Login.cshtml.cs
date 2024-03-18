@@ -49,6 +49,14 @@ namespace TODOFront.Pages.User
 
                 httpContext.Session.SetInt32("UserID", ExistingUser!.UserId);
                 httpContext.Session.SetString("UserName", ExistingUser!.UserName!);
+                if (ExistingUser.IsPremium)
+                {
+                    httpContext.Session.SetString("AccountType", "Premium");
+                }
+                else
+                {
+                    httpContext.Session.SetString("AccountType", "Standart");
+                }
 
                 return RedirectToPage("/Tasks/Index");
             }

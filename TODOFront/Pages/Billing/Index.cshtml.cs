@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
@@ -38,6 +39,13 @@ namespace TODOFront.Pages.Billing
 
             if (response.IsSuccessStatusCode)
             {
+                if (content == "CONCLUIDA")
+                {
+                    httpContext.Session!.SetString("AccountType", "Premium");
+                    
+                    return RedirectToPage("/Tasks/Index");
+                }
+
                 var existingBilling = JsonConvert.DeserializeObject<BillingModel>(content);
                 
                 Billing = existingBilling!;
@@ -48,7 +56,7 @@ namespace TODOFront.Pages.Billing
                 response = await httpClient.SendAsync(requestMessage);
                 
                 content = await response.Content.ReadAsStringAsync();
-
+                
                 if (response.IsSuccessStatusCode)
                 {
                     var qrCode = content;

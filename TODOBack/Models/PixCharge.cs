@@ -13,7 +13,7 @@ namespace TODOBack.Models
             {
                 calendario = new
                 {
-                    expiracao = 60
+                    expiracao = 600
                 },
                 devedor = new
                 {

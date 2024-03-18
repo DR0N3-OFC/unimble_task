@@ -13,19 +13,23 @@ namespace TODOFront.Pages.Tasks
         public List<TaskModel> TasksList { get; set; } = new();
         public TaskModel NewTask { get; set; } = new();
 
+        private bool _userIsPremium;
+
         readonly HttpContext httpContext;
         public IndexModel(IHttpContextAccessor httpContextAccessor)
         {
             httpContext = httpContextAccessor.HttpContext!;
         }
 
-        public async Task LoadTasksListAsync()
+        public async Task LoadPropertiesListAsync()
         {
             if (httpContext.Session.GetInt32("UserID") == null)
             {
                 return;
             }
 
+            _userIsPremium = httpContext.Session!.GetString("AccountType") == "Premium" ? true : false;
+            
             var httpClient = new HttpClient();
             var url = $"{APIConnection.URL}/TasksByUser/{httpContext.Session.GetInt32("UserID")}";
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
@@ -44,21 +48,21 @@ namespace TODOFront.Pages.Tasks
                 return RedirectToPage("/User/Login");
             }
 
-            await LoadTasksListAsync();
+            await LoadPropertiesListAsync();
 
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await LoadTasksListAsync();
+            await LoadPropertiesListAsync();
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
-            if (TasksList.Count == 5)
+            
+            if (TasksList.Count >= 5 && !_userIsPremium)
             {
                 return RedirectToPage("/Billing/Index");
             }
@@ -90,7 +94,7 @@ namespace TODOFront.Pages.Tasks
 
         public async Task<IActionResult> OnPostEditAsync(int id)
         {
-            await LoadTasksListAsync();
+            await LoadPropertiesListAsync();
 
             var httpClient = new HttpClient();
             var url = $"{APIConnection.URL}/Tasks/{id}";

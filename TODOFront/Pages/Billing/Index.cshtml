@@ -44,10 +44,6 @@
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
-        .details-container h2 {
-            text-align: center;
-        }
-
         .details-container .details {
             margin-bottom: 20px;
         }
@@ -58,20 +54,24 @@
         margin-bottom: 20px;
     }
 
-        .qr-code img {
-            width: 200px;
-            height: auto;
-        }
+    .qr-code img {
+        width: 200px;
+        height: auto;
+    }
+
+    .details-container p {
+        margin: 20px;
+    }
 </style>
 
 <div class="wrapper">
     @if(Model.Billing?.TxID != null)
     {
         <div class="details-container">
-            <h2>Gostou do Unimble Task?</h2>
+            <h2 class="text-center">Gostou do Unimble Task?</h2>
             <p class="text-center">Conclua a operação de assinatura e adicione quantas tarefas quiser por apenas R$0,01.</p>
 
-            <h2>Detalhes da Cobrança PIX</h2>
+            <h4 class="text-center">Detalhes da Cobrança PIX</h4>
 
             <div class="details">
                 <strong>Nome:</strong> @Model.Billing.FullName<br>

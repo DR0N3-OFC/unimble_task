@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+
+  postgres:
+    image: dr0n3ofc/unimble_postgres:v0.0.1
+    container_name: unimble_db
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - unimble_volume:/var/lib/postgresql/data
+
+  webapi:
+    build: ./TODOBack
+    container_name: unimble_webapi
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+
+  unimblefront:
+    build: ./TODOFront
+    container_name: unimble_frontend
+    ports:
+      - 5260:5260
+
+volumes:
+  unimble_volume:

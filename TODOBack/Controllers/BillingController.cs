@@ -21,7 +21,7 @@ namespace TODOBack.Controllers
         [HttpGet("/Billings/{txid:guid}")]
         public IActionResult GetByID([FromRoute] string txid, [FromServices] AppDbContext context)
         {
-            var billingModel = context.Billings!.SingleOrDefault(e => e.TxID == id);
+            var billingModel = context.Billings!.SingleOrDefault(e => e.TxID == txid);
 
             if (billingModel == null)
             {
@@ -38,7 +38,7 @@ namespace TODOBack.Controllers
             {
                 var charge = new PixCharge();
 
-                var chargeDetails = charge.Execute(id);
+                var chargeDetails = charge.Execute(txid);
                 
                 var locationId = (int)JObject.Parse(chargeDetails)["loc"]["id"];
                 
@@ -62,30 +62,33 @@ namespace TODOBack.Controllers
         [HttpGet("/BillingByUser/{id:int}")]
         public IActionResult GetByUser([FromRoute] int id, [FromServices] AppDbContext context)
         {
-            var existingBilling = context.Billings!.FirstOrDefault(e => e.User!.UserId == id);
+            var existingBilling = context.Billings!.FirstOrDefault(e => e.UserID == id);
 
             if (existingBilling != null)
             {
-                if (existingBilling.Deadline < DateTime.Now)
+                var charge = new PixCharge();
+                var result = charge.Execute(existingBilling.TxID!);
+
+                if (existingBilling.Deadline < DateTime.Now && (string)JObject.Parse(result)["status"] == "ATIVA")
                 {
-                    var charge = new PixCharge();
-                    var result = charge.Execute(existingBilling.TxID!);
-
-                    if ((string)JObject.Parse(result)["status"] == "CONCLUIDA")
-                    {
-                        var user = context.Users!.FirstOrDefault(e => e.UserId == existingBilling.UserID);
-                        user!.IsPremium = true;
-
-                        context.Users!.Update(user);
-                    }
-
                     context.Billings!.Remove(existingBilling);
 
                     context.SaveChanges();
 
-                    return NotFound();
+                    return BadRequest("O pedido expirou");
                 }
+                else if ((string)JObject.Parse(result)["status"] == "CONCLUIDA")
+                {
+                    var user = context.Users!.FirstOrDefault(e => e.UserId == existingBilling.UserID);
+                    user!.IsPremium = true;
 
+                    context.Users!.Update(user);
+
+                    context.SaveChanges();
+                    
+                    return Ok((string)JObject.Parse(result)["status"]);
+                }
+                
                 return Ok(existingBilling);
             }
 
