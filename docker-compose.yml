@@ -13,7 +13,7 @@ services:
       - unimble_volume:/var/lib/postgresql/data
 
   webapi:
-    build: ./TODOBack
+    build: ./
     container_name: unimble_webapi
     ports:
       - 8000:8000
@@ -21,7 +21,7 @@ services:
       - postgres
 
   unimblefront:
-    build: ./TODOFront
+    build: ./
     container_name: unimble_frontend
     ports:
       - 5260:5260
