@@ -1,42 +1,12 @@
 ﻿@page "/User/Edit"
 @model TODOFront.Pages.User.Edit
 @{
-    ViewData["Title"] = "Planejaí - Editar perfil";
+    ViewData["Title"] = "Unimble Task - Editar perfil";
 }
 
-<style>
-    body {
-        background-color: #e9ecef;
-    }
-
-    .wrapper {
-        margin: 10vh auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .form-container {
-        min-width: 600px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .form-container h2 {
-        text-align: center;
-    }
-
-    .form-container .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-container label {
-        font-weight: bold;
-    }
-</style>
+<head>
+    <link rel="stylesheet" href="~/css/user/edit.css" type="text/css" />
+</head>
 
 <div class="wrapper">
     <div class="form-container">
@@ -46,8 +16,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="UserToEdit.UserId" />
             <div class="form-group">
-                <label asp-for="UserToEdit.UserName">Nome:</label>
-                <input asp-for="UserToEdit.UserName" type="text" class="form-control" value="@Model.UserToEdit.UserName" readonly>
+                <label asp-for="UserToEdit.UserName">Usuário:</label>
+                <input asp-for="UserToEdit.UserName" type="text" class="form-control" value="@Model.UserToEdit.UserName">
                 <span asp-validation-for="UserToEdit.UserName" class="text-danger"></span>
             </div>
             <div class="form-group">

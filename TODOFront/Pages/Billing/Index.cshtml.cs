@@ -16,6 +16,7 @@ namespace TODOFront.Pages.Billing
 
         public string? QRCode { get; set; }
 
+        public string? PixCode { get; set; }
 
         readonly HttpContext httpContext;
         public IndexModel(IHttpContextAccessor httpContextAccessor)
@@ -62,6 +63,20 @@ namespace TODOFront.Pages.Billing
                     var qrCode = content;
 
                     QRCode = qrCode!;
+                }
+
+                url = $"{APIConnection.URL}/BillingPixCode/{Billing!.TxID}";
+                requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+
+                response = await httpClient.SendAsync(requestMessage);
+
+                content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var pixCode = content;
+
+                    PixCode = pixCode!;
                 }
             }
 

@@ -1,42 +1,12 @@
 ﻿@page "/Register"
 @model TODOFront.Pages.User.Register
 @{
-    ViewData["Title"] = "Planejaí - Cadastro";
+    ViewData["Title"] = "Unimble Task - Cadastro";
 }
 
-<style>
-    body {
-        background-color: #e9ecef;
-    }
-
-    .wrapper {
-        margin: 10vh auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .form-container {
-        min-width: 600px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .form-container h2 {
-        text-align: center;
-    }
-
-    .form-container .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-container label {
-        font-weight: bold;
-    }
-</style>
+<head>
+    <link rel="stylesheet" href="~/css/user/register.css" type="text/css" />
+</head>
 
 <div class="wrapper">
     <div class="form-container">
@@ -70,5 +40,6 @@
                 <a asp-page="/Index" class="btn btn-secondary btn-block">Cancelar</a>
             </div>
         </form>
+        <p>Já possui uma conta? <a asp-page="/User/Login">Faça login</a></p>
     </div>
 </div>

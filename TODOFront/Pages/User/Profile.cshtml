@@ -1,69 +1,12 @@
 ﻿@page  "/Profile"
 @model TODOFront.Pages.User.Profile
 @{
-    ViewData["Title"] = "Planejaí - Perfil do Usuário";
+    ViewData["Title"] = "Unimble Task - Perfil do Usuário";
 }
 
-<style>
-    body {
-        background-color: #e9ecef;
-    }
-
-    .wrapper {
-        margin: 10vh auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .profile-container {
-        width: 60%;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .profile-container h2 {
-        margin: 20px auto;
-    }
-
-    .profile-container img {
-        border-radius: 50%;
-        width: 150px;
-        align-self: center;
-    }
-
-    .profile-container p {
-        margin-bottom: 10px;
-    }
-
-    .btn-container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 20px 0 0 0;
-    }
-
-    .profile-content {
-        width: 75%;
-        display: flex;
-        justify-content: space-around;
-        margin: 50px auto;
-        align-self: center;
-    }
-
-    .user-data {
-        align-self: center;
-    }
-
-    .btn-link:hover {
-        text-decoration: none;
-    }
-</style>
+<head>
+    <link rel="stylesheet" href="~/css/user/profile.css" type="text/css"/>
+</head>
 
 <div class="wrapper">
     <div class="profile-container">
@@ -73,6 +16,14 @@
             <div class="user-data">
                 <p><strong>Usuário:</strong> @Model.ExistingUser!.UserName</p>
                 <p><strong>E-mail:</strong> @Model.ExistingUser!.Email</p>
+                @if (Model.ExistingUser!.IsPremium)
+                {
+                    <p class="premium-user"><strong>Usuário premium</strong> &#128081;</p>
+                }
+                else
+                {
+                    <p class="standart-user"><strong>Usuário padrão</strong> &#129506;</p>
+                }
             </div>
         </div>
         <form class="btn-container" method="post">

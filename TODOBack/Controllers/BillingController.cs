@@ -31,6 +31,30 @@ namespace TODOBack.Controllers
             return Ok(billingModel);
         }
 
+        [HttpGet("/BillingPixCode/{txid:guid}")]
+        public IActionResult GetBillingPixCode([FromRoute] string txid, [FromServices] AppDbContext context)
+        {
+            try
+            {
+                var charge = new PixCharge();
+
+                var chargeDetails = charge.Execute(txid);
+
+                var result = (string)JObject.Parse(chargeDetails)["pixCopiaECola"];
+
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+            return BadRequest();
+        }
+
         [HttpGet("/BillingQrCode/{txid:guid}")]
         public IActionResult GetBillingQRCode([FromRoute] string txid, [FromServices] AppDbContext context)
         {
