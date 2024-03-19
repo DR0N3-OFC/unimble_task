@@ -21,7 +21,7 @@ services:
       - postgres
 
   unimblefront:
-    build: ./TODOFront
+    image: dr0n3ofc/unimble_front:v0.0.1
     container_name: unimble_frontend
     ports:
       - 5260:5260

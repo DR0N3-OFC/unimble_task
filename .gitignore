@@ -397,5 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-TODOBack/credentials.json
-TODOBack/Certificate/
+credentials.json
+Certificate/
