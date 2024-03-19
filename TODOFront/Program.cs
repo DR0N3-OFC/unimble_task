@@ -13,6 +13,9 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddHttpContextAccessor();
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5260";
+builder.WebHost.UseUrls($"http://*:{port}");
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();

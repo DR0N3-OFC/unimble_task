@@ -9,6 +9,8 @@ namespace TODOBack.Models
 
         public dynamic Execute(string cpf, string fullName)
         {
+            var pixKey = Environment.GetEnvironmentVariable("PIX_KEY");
+
             var body = new
             {
                 calendario = new
@@ -24,7 +26,7 @@ namespace TODOBack.Models
                 {
                     original = "0.01"
                 },
-                chave = "a25d7cf8-cfeb-412a-bd8a-6f87e562dd7c"
+                chave = $"{pixKey}"
             };
 
             try

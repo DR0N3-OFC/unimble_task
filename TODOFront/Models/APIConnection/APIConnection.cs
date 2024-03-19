@@ -2,6 +2,6 @@
 {
     public class APIConnection
     {
-        public static string URL = "http://webapi:8000";
+        public static string URL = $"https://unimbletask-api.up.railway.app";
     }
 }

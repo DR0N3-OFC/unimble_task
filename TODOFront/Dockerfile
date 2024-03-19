@@ -14,7 +14,7 @@ RUN apt-get update \
 ENV DISPLAY :99
 ENV ASPNETCORE_URLS=http://+:5260
 ENV DisableHttpsRedirection=true
-ENV POSTGRES_PASSWORD: postgres
+ENV POSTGRES_PASSWORD=postgres
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
