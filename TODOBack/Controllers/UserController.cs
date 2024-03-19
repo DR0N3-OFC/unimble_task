@@ -32,14 +32,20 @@ namespace PlanejaiBack.Controllers
         [HttpGet("/Users/{email}/{password}")]
         public IActionResult GetByEmailAndPassword([FromRoute] string email, string password, [FromServices] AppDbContext context)
         {
-            var user = context.Users!.FirstOrDefault(u => (u.Email == email) && (u.Password == password));
+            var user = context.Users!.FirstOrDefault(u => u.Email == email);
 
-            if (user == null)
+            if (user != null )
             {
-                return NotFound("Dados inválidos. Confira os dados inseridos e tente novamente.");
+                bool passwordIsValid = PasswordHash.Decrypt(password, user.Password!);
+
+                if (passwordIsValid) {
+                    return Ok(user);
+                }
+
+                return NotFound("Senha incorreta. Confira os dados inseridos e tente novamente.");
             }
 
-            return Ok(user);
+            return NotFound("Dados inválidos. Confira os dados inseridos e tente novamente.");
         }
 
         [HttpPost("/Users/")]
@@ -49,6 +55,8 @@ namespace PlanejaiBack.Controllers
 
             if (existingUser == null)
             {
+                user.Password = PasswordHash.Encrypt(user.Password!);
+
                 context.Users!.Add(user);
                 context.SaveChanges();
 
