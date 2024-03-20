@@ -71,6 +71,8 @@ namespace PlanejaiBack.Controllers
         {
             if (userId == user.UserId)
             {
+                user.Password = PasswordHash.Encrypt(user.Password!);
+                
                 context.Users!.Update(user);
                 context.SaveChanges();
 
