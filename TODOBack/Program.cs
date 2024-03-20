@@ -36,8 +36,6 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<AppDbContext>();
 
     context.Database.EnsureCreated();
-
-    DbInitializer.Initialize(context);
 }
 
 app.UseAuthorization();

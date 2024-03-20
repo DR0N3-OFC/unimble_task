@@ -79,5 +79,21 @@ namespace PlanejaiBack.Controllers
 
             return NotFound();
         }
+
+        [HttpDelete("/Users/{userId:int}")]
+        public IActionResult Delete([FromRoute] int userId, [FromServices] AppDbContext context)
+        {
+            var userModel = context.Users!.Find(userId);
+
+            if (userModel != null)
+            {
+                context.Users!.Remove(userModel);
+                context.SaveChanges();
+
+                return Ok(userModel);
+            }
+
+            return NotFound();
+        }
     }
 }
