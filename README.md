@@ -24,7 +24,7 @@ Project developed for the `Unimble`'s internship selective process.
 
 ## Running the application
 
-- If you've installed from `docker-compose.yaml`, the application can be accessed on `http://localhost::5260`.
+- If you've installed from `docker-compose.yaml`, the application can be accessed on `http://localhost:5260`.
 
 ## Directory Structure of the project
 
