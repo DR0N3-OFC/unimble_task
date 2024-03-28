@@ -25,7 +25,6 @@ Project developed for the `Unimble`'s internship selective process.
 ## Running the application
 
 - If you've installed from `docker-compose.yaml`, the application can be accessed on `http://localhost::5260`.
-- The hosted application can be found at `https://unimbletask.up.railway.app`.
 
 ## Directory Structure of the project
 
